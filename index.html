@@ -1,0 +1,24 @@
+<html>
+    <head><title>Go Play</title></head>
+    <body>
+		<meta charset="utf-8">
+		<script src="wasm_exec.js"></script>
+		<script>
+                const go = new Go();
+                let mod, inst;
+                WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then(async (result) => {
+                        mod = result.module;
+                        inst = result.instance;
+                        await go.run(inst)
+                });
+		</script>
+
+	<textarea id="code-input" cols="80" rows="20"></textarea>
+	<br>
+	<button onClick="gofmt();">Format</button>
+
+	<br><br>
+	<p id="messageP"></p>
+    </body>
+</html>
+
